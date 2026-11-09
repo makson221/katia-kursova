@@ -1,0 +1,11 @@
+# Build results
+bin/
+obj/
+[Dd]ebug/
+[Rr]elease/
+*.user
+*.suo
+.vs/
+
+# Runtime data (створюється автоматично при першому запуску)
+PrivateSchool/Data/school.xml*

@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <RootNamespace>PrivateSchool</RootNamespace>
+    <AssemblyName>PrivateSchool</AssemblyName>
+    <Product>Автоматизована система приватного навчального закладу</Product>
+    <Version>1.0.0</Version>
+  </PropertyGroup>
+
+</Project>
