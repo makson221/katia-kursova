@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>PrivateSchool.WinForms</RootNamespace>
+    <AssemblyName>EduManager</AssemblyName>
+    <!-- Дозволяє збирати проєкт також на Linux/macOS (запуск — лише на Windows) -->
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
+    <Product>EduManager — АС приватного навчального закладу</Product>
+    <Version>1.0.0</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PrivateSchool.Core\PrivateSchool.Core.csproj" />
+  </ItemGroup>
+
+</Project>
