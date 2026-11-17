@@ -45,7 +45,7 @@ namespace PrivateSchool.Forms
             // lblGroup
             //
             this.lblGroup.AutoSize = true;
-            this.lblGroup.Location = new System.Drawing.Point(16, 21);
+            this.lblGroup.Location = new System.Drawing.Point(24, 91);
             this.lblGroup.Name = "lblGroup";
             this.lblGroup.TabIndex = 0;
             this.lblGroup.Text = "Група:";
@@ -54,24 +54,24 @@ namespace PrivateSchool.Forms
             // 
             this.cmbGroup.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbGroup.FormattingEnabled = true;
-            this.cmbGroup.Location = new System.Drawing.Point(160, 18);
+            this.cmbGroup.Location = new System.Drawing.Point(170, 86);
             this.cmbGroup.Name = "cmbGroup";
-            this.cmbGroup.Size = new System.Drawing.Size(250, 23);
+            this.cmbGroup.Size = new System.Drawing.Size(252, 23);
             this.cmbGroup.TabIndex = 1;
             //
             // lblTeacher
             // 
-            this.lblTeacher.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(84)))), ((int)(((byte)(153)))));
-            this.lblTeacher.Location = new System.Drawing.Point(160, 54);
+            this.lblTeacher.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(99)))), ((int)(((byte)(235)))));
+            this.lblTeacher.Location = new System.Drawing.Point(170, 126);
             this.lblTeacher.Name = "lblTeacher";
-            this.lblTeacher.Size = new System.Drawing.Size(250, 23);
+            this.lblTeacher.Size = new System.Drawing.Size(252, 23);
             this.lblTeacher.TabIndex = 2;
             this.lblTeacher.Text = "";
             //
             // lblDay
             //
             this.lblDay.AutoSize = true;
-            this.lblDay.Location = new System.Drawing.Point(16, 89);
+            this.lblDay.Location = new System.Drawing.Point(24, 167);
             this.lblDay.Name = "lblDay";
             this.lblDay.TabIndex = 3;
             this.lblDay.Text = "День тижня:";
@@ -80,15 +80,15 @@ namespace PrivateSchool.Forms
             // 
             this.cmbDay.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbDay.FormattingEnabled = true;
-            this.cmbDay.Location = new System.Drawing.Point(160, 86);
+            this.cmbDay.Location = new System.Drawing.Point(170, 162);
             this.cmbDay.Name = "cmbDay";
-            this.cmbDay.Size = new System.Drawing.Size(250, 23);
+            this.cmbDay.Size = new System.Drawing.Size(252, 23);
             this.cmbDay.TabIndex = 4;
             //
             // lblStartTime
             //
             this.lblStartTime.AutoSize = true;
-            this.lblStartTime.Location = new System.Drawing.Point(16, 123);
+            this.lblStartTime.Location = new System.Drawing.Point(24, 205);
             this.lblStartTime.Name = "lblStartTime";
             this.lblStartTime.TabIndex = 5;
             this.lblStartTime.Text = "Початок:";
@@ -97,7 +97,7 @@ namespace PrivateSchool.Forms
             // 
             this.dtpStartTime.CustomFormat = "HH:mm";
             this.dtpStartTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpStartTime.Location = new System.Drawing.Point(160, 120);
+            this.dtpStartTime.Location = new System.Drawing.Point(170, 200);
             this.dtpStartTime.Name = "dtpStartTime";
             this.dtpStartTime.ShowUpDown = true;
             this.dtpStartTime.Size = new System.Drawing.Size(100, 23);
@@ -106,7 +106,7 @@ namespace PrivateSchool.Forms
             // lblDuration
             //
             this.lblDuration.AutoSize = true;
-            this.lblDuration.Location = new System.Drawing.Point(16, 157);
+            this.lblDuration.Location = new System.Drawing.Point(24, 243);
             this.lblDuration.Name = "lblDuration";
             this.lblDuration.TabIndex = 7;
             this.lblDuration.Text = "Тривалість, хв:";
@@ -114,7 +114,7 @@ namespace PrivateSchool.Forms
             // numDuration
             // 
             this.numDuration.Increment = new decimal(new int[] { 15, 0, 0, 0 });
-            this.numDuration.Location = new System.Drawing.Point(160, 154);
+            this.numDuration.Location = new System.Drawing.Point(170, 238);
             this.numDuration.Maximum = new decimal(new int[] { 240, 0, 0, 0 });
             this.numDuration.Minimum = new decimal(new int[] { 30, 0, 0, 0 });
             this.numDuration.Name = "numDuration";
@@ -125,16 +125,16 @@ namespace PrivateSchool.Forms
             // lblRoom
             //
             this.lblRoom.AutoSize = true;
-            this.lblRoom.Location = new System.Drawing.Point(16, 191);
+            this.lblRoom.Location = new System.Drawing.Point(24, 281);
             this.lblRoom.Name = "lblRoom";
             this.lblRoom.TabIndex = 9;
             this.lblRoom.Text = "Аудиторія:";
             //
             // txtRoom
             // 
-            this.txtRoom.Location = new System.Drawing.Point(160, 188);
+            this.txtRoom.Location = new System.Drawing.Point(170, 276);
             this.txtRoom.Name = "txtRoom";
-            this.txtRoom.Size = new System.Drawing.Size(250, 23);
+            this.txtRoom.Size = new System.Drawing.Size(252, 23);
             this.txtRoom.TabIndex = 10;
             this.txtRoom.MaxLength = 40;
             //
@@ -142,7 +142,7 @@ namespace PrivateSchool.Forms
             //
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(428, 280);
+            this.ClientSize = new System.Drawing.Size(446, 386);
             this.Controls.Add(this.txtRoom);
             this.Controls.Add(this.lblRoom);
             this.Controls.Add(this.numDuration);

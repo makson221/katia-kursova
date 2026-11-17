@@ -12,11 +12,13 @@ namespace PrivateSchool.Forms
         private readonly Course _course;
 
         public CourseForm(SchoolService service, Course course)
-            : base(service, course == null, "курс")
+            : base(service, course == null, "Новий курс", "Редагування курсу")
         {
             InitializeComponent();
             _course = course == null ? new Course { PricePerMonth = 2000 } : course.Clone<Course>();
             LoadData();
+            if (!IsNew)
+                Subtitle = _course.Name;
 
             numPrice.ValueChanged += (s, e) => UpdateTotal();
             numDuration.ValueChanged += (s, e) => UpdateTotal();

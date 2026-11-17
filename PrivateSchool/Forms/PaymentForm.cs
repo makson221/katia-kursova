@@ -14,12 +14,14 @@ namespace PrivateSchool.Forms
         private readonly Payment _payment;
 
         public PaymentForm(SchoolService service, Payment payment, int defaultStudentId)
-            : base(service, payment == null, "оплата")
+            : base(service, payment == null, "Нова оплата", "Редагування оплати")
         {
             InitializeComponent();
             _payment = payment == null ? new Payment { StudentId = defaultStudentId } : payment.Clone<Payment>();
             dtpDate.MaxDate = DateTime.Today;
             LoadData();
+            if (!IsNew)
+                Subtitle = Service.GetStudentName(_payment.StudentId);
 
             cmbStudent.SelectedIndexChanged += (s, e) => OnStudentChanged();
             OnStudentChanged();

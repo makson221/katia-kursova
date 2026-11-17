@@ -59,14 +59,14 @@ namespace PrivateSchool.Forms
             // lblLastName
             //
             this.lblLastName.AutoSize = true;
-            this.lblLastName.Location = new System.Drawing.Point(16, 21);
+            this.lblLastName.Location = new System.Drawing.Point(24, 91);
             this.lblLastName.Name = "lblLastName";
             this.lblLastName.TabIndex = 0;
             this.lblLastName.Text = "Прізвище:";
             //
             // txtLastName
             // 
-            this.txtLastName.Location = new System.Drawing.Point(160, 18);
+            this.txtLastName.Location = new System.Drawing.Point(170, 86);
             this.txtLastName.Name = "txtLastName";
             this.txtLastName.Size = new System.Drawing.Size(230, 23);
             this.txtLastName.TabIndex = 1;
@@ -75,14 +75,14 @@ namespace PrivateSchool.Forms
             // lblFirstName
             //
             this.lblFirstName.AutoSize = true;
-            this.lblFirstName.Location = new System.Drawing.Point(16, 55);
+            this.lblFirstName.Location = new System.Drawing.Point(24, 129);
             this.lblFirstName.Name = "lblFirstName";
             this.lblFirstName.TabIndex = 2;
             this.lblFirstName.Text = "Ім'я:";
             //
             // txtFirstName
             // 
-            this.txtFirstName.Location = new System.Drawing.Point(160, 52);
+            this.txtFirstName.Location = new System.Drawing.Point(170, 124);
             this.txtFirstName.Name = "txtFirstName";
             this.txtFirstName.Size = new System.Drawing.Size(230, 23);
             this.txtFirstName.TabIndex = 3;
@@ -91,14 +91,14 @@ namespace PrivateSchool.Forms
             // lblMiddleName
             //
             this.lblMiddleName.AutoSize = true;
-            this.lblMiddleName.Location = new System.Drawing.Point(16, 89);
+            this.lblMiddleName.Location = new System.Drawing.Point(24, 167);
             this.lblMiddleName.Name = "lblMiddleName";
             this.lblMiddleName.TabIndex = 4;
             this.lblMiddleName.Text = "По батькові:";
             //
             // txtMiddleName
             // 
-            this.txtMiddleName.Location = new System.Drawing.Point(160, 86);
+            this.txtMiddleName.Location = new System.Drawing.Point(170, 162);
             this.txtMiddleName.Name = "txtMiddleName";
             this.txtMiddleName.Size = new System.Drawing.Size(230, 23);
             this.txtMiddleName.TabIndex = 5;
@@ -107,7 +107,7 @@ namespace PrivateSchool.Forms
             // lblBirthDate
             //
             this.lblBirthDate.AutoSize = true;
-            this.lblBirthDate.Location = new System.Drawing.Point(16, 123);
+            this.lblBirthDate.Location = new System.Drawing.Point(24, 205);
             this.lblBirthDate.Name = "lblBirthDate";
             this.lblBirthDate.TabIndex = 6;
             this.lblBirthDate.Text = "Дата народження:";
@@ -115,7 +115,7 @@ namespace PrivateSchool.Forms
             // dtpBirthDate
             // 
             this.dtpBirthDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpBirthDate.Location = new System.Drawing.Point(160, 120);
+            this.dtpBirthDate.Location = new System.Drawing.Point(170, 200);
             this.dtpBirthDate.Name = "dtpBirthDate";
             this.dtpBirthDate.Size = new System.Drawing.Size(230, 23);
             this.dtpBirthDate.TabIndex = 7;
@@ -123,14 +123,14 @@ namespace PrivateSchool.Forms
             // lblPhone
             //
             this.lblPhone.AutoSize = true;
-            this.lblPhone.Location = new System.Drawing.Point(16, 157);
+            this.lblPhone.Location = new System.Drawing.Point(24, 243);
             this.lblPhone.Name = "lblPhone";
             this.lblPhone.TabIndex = 8;
             this.lblPhone.Text = "Телефон:";
             //
             // txtPhone
             // 
-            this.txtPhone.Location = new System.Drawing.Point(160, 154);
+            this.txtPhone.Location = new System.Drawing.Point(170, 238);
             this.txtPhone.Name = "txtPhone";
             this.txtPhone.Size = new System.Drawing.Size(230, 23);
             this.txtPhone.TabIndex = 9;
@@ -139,14 +139,14 @@ namespace PrivateSchool.Forms
             // lblEmail
             //
             this.lblEmail.AutoSize = true;
-            this.lblEmail.Location = new System.Drawing.Point(16, 191);
+            this.lblEmail.Location = new System.Drawing.Point(24, 281);
             this.lblEmail.Name = "lblEmail";
             this.lblEmail.TabIndex = 10;
             this.lblEmail.Text = "E-mail:";
             //
             // txtEmail
             // 
-            this.txtEmail.Location = new System.Drawing.Point(160, 188);
+            this.txtEmail.Location = new System.Drawing.Point(170, 276);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(230, 23);
             this.txtEmail.TabIndex = 11;
@@ -155,14 +155,14 @@ namespace PrivateSchool.Forms
             // lblSpecialization
             //
             this.lblSpecialization.AutoSize = true;
-            this.lblSpecialization.Location = new System.Drawing.Point(404, 21);
+            this.lblSpecialization.Location = new System.Drawing.Point(416, 91);
             this.lblSpecialization.Name = "lblSpecialization";
             this.lblSpecialization.TabIndex = 12;
             this.lblSpecialization.Text = "Спеціалізація:";
             //
             // txtSpecialization
             // 
-            this.txtSpecialization.Location = new System.Drawing.Point(548, 18);
+            this.txtSpecialization.Location = new System.Drawing.Point(562, 86);
             this.txtSpecialization.Name = "txtSpecialization";
             this.txtSpecialization.Size = new System.Drawing.Size(230, 23);
             this.txtSpecialization.TabIndex = 13;
@@ -171,14 +171,14 @@ namespace PrivateSchool.Forms
             // lblEducation
             //
             this.lblEducation.AutoSize = true;
-            this.lblEducation.Location = new System.Drawing.Point(404, 55);
+            this.lblEducation.Location = new System.Drawing.Point(416, 129);
             this.lblEducation.Name = "lblEducation";
             this.lblEducation.TabIndex = 14;
             this.lblEducation.Text = "Освіта:";
             //
             // txtEducation
             // 
-            this.txtEducation.Location = new System.Drawing.Point(548, 52);
+            this.txtEducation.Location = new System.Drawing.Point(562, 124);
             this.txtEducation.Name = "txtEducation";
             this.txtEducation.Size = new System.Drawing.Size(230, 23);
             this.txtEducation.TabIndex = 15;
@@ -187,7 +187,7 @@ namespace PrivateSchool.Forms
             // lblCategory
             //
             this.lblCategory.AutoSize = true;
-            this.lblCategory.Location = new System.Drawing.Point(404, 89);
+            this.lblCategory.Location = new System.Drawing.Point(416, 167);
             this.lblCategory.Name = "lblCategory";
             this.lblCategory.TabIndex = 16;
             this.lblCategory.Text = "Категорія:";
@@ -196,7 +196,7 @@ namespace PrivateSchool.Forms
             // 
             this.cmbCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbCategory.FormattingEnabled = true;
-            this.cmbCategory.Location = new System.Drawing.Point(548, 86);
+            this.cmbCategory.Location = new System.Drawing.Point(562, 162);
             this.cmbCategory.Name = "cmbCategory";
             this.cmbCategory.Size = new System.Drawing.Size(230, 23);
             this.cmbCategory.TabIndex = 17;
@@ -204,14 +204,14 @@ namespace PrivateSchool.Forms
             // lblExperience
             //
             this.lblExperience.AutoSize = true;
-            this.lblExperience.Location = new System.Drawing.Point(404, 123);
+            this.lblExperience.Location = new System.Drawing.Point(416, 205);
             this.lblExperience.Name = "lblExperience";
             this.lblExperience.TabIndex = 18;
             this.lblExperience.Text = "Стаж, років:";
             //
             // numExperience
             // 
-            this.numExperience.Location = new System.Drawing.Point(548, 120);
+            this.numExperience.Location = new System.Drawing.Point(562, 200);
             this.numExperience.Maximum = new decimal(new int[] { 60, 0, 0, 0 });
             this.numExperience.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
             this.numExperience.Name = "numExperience";
@@ -222,7 +222,7 @@ namespace PrivateSchool.Forms
             // lblHourlyRate
             //
             this.lblHourlyRate.AutoSize = true;
-            this.lblHourlyRate.Location = new System.Drawing.Point(404, 157);
+            this.lblHourlyRate.Location = new System.Drawing.Point(416, 243);
             this.lblHourlyRate.Name = "lblHourlyRate";
             this.lblHourlyRate.TabIndex = 20;
             this.lblHourlyRate.Text = "Ставка, грн/год:";
@@ -231,7 +231,7 @@ namespace PrivateSchool.Forms
             // 
             this.numHourlyRate.DecimalPlaces = 2;
             this.numHourlyRate.Increment = new decimal(new int[] { 10, 0, 0, 0 });
-            this.numHourlyRate.Location = new System.Drawing.Point(548, 154);
+            this.numHourlyRate.Location = new System.Drawing.Point(562, 238);
             this.numHourlyRate.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
             this.numHourlyRate.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             this.numHourlyRate.Name = "numHourlyRate";
@@ -243,7 +243,7 @@ namespace PrivateSchool.Forms
             // lblHireDate
             //
             this.lblHireDate.AutoSize = true;
-            this.lblHireDate.Location = new System.Drawing.Point(404, 191);
+            this.lblHireDate.Location = new System.Drawing.Point(416, 281);
             this.lblHireDate.Name = "lblHireDate";
             this.lblHireDate.TabIndex = 22;
             this.lblHireDate.Text = "Дата прийняття:";
@@ -251,7 +251,7 @@ namespace PrivateSchool.Forms
             // dtpHireDate
             // 
             this.dtpHireDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpHireDate.Location = new System.Drawing.Point(548, 188);
+            this.dtpHireDate.Location = new System.Drawing.Point(562, 276);
             this.dtpHireDate.Name = "dtpHireDate";
             this.dtpHireDate.Size = new System.Drawing.Size(230, 23);
             this.dtpHireDate.TabIndex = 23;
@@ -260,7 +260,7 @@ namespace PrivateSchool.Forms
             //
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(796, 280);
+            this.ClientSize = new System.Drawing.Size(816, 386);
             this.Controls.Add(this.dtpHireDate);
             this.Controls.Add(this.lblHireDate);
             this.Controls.Add(this.numHourlyRate);

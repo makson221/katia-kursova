@@ -14,7 +14,7 @@ namespace PrivateSchool.Forms
         private readonly Lesson _lesson;
 
         public LessonForm(SchoolService service, Lesson lesson, int defaultGroupId)
-            : base(service, lesson == null, "заняття")
+            : base(service, lesson == null, "Нове заняття в розкладі", "Редагування заняття")
         {
             InitializeComponent();
             _lesson = lesson == null ? new Lesson { GroupId = defaultGroupId } : lesson.Clone<Lesson>();

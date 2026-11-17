@@ -12,7 +12,7 @@ namespace PrivateSchool.Forms
         private readonly User _user;
 
         public UserForm(SchoolService service, User user)
-            : base(service, user == null, "користувач")
+            : base(service, user == null, "Новий користувач", "Редагування користувача")
         {
             InitializeComponent();
             _user = user == null ? new User() : user.Clone<User>();
@@ -20,6 +20,8 @@ namespace PrivateSchool.Forms
             txtLogin.Text = _user.Login;
             txtFullName.Text = _user.FullName;
             UiHelper.Fill(cmbRole, EnumHelper.GetItems<UserRole>(), _user.Role);
+            if (!IsNew)
+                Subtitle = _user.ToString();
             lblHint.Text = IsNew
                 ? "Пароль — щонайменше 6 символів."
                 : "Залиште поля пароля порожніми,\nщоб не змінювати пароль.";

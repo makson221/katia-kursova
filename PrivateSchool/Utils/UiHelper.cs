@@ -60,23 +60,6 @@ namespace PrivateSchool.Utils
             MessageBox.Show(owner, message, "Інформація", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     
-        /// <summary>Єдиний стиль оформлення таблиць програми.</summary>
-        public static void StyleGrid(DataGridView grid)
-        {
-            grid.EnableHeadersVisualStyles = false;
-            grid.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(0, 84, 153);
-            grid.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
-            grid.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(0, 84, 153);
-            grid.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            grid.ColumnHeadersDefaultCellStyle.Padding = new Padding(2, 4, 2, 4);
-            grid.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(242, 247, 252);
-            grid.DefaultCellStyle.SelectionBackColor = Color.FromArgb(204, 228, 247);
-            grid.DefaultCellStyle.SelectionForeColor = Color.Black;
-            grid.RowTemplate.Height = 26;
-            grid.GridColor = Color.FromArgb(225, 230, 235);
-            grid.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
-        }
-
         /// <summary>
         /// Перетворює колекцію об'єктів (у тому числі анонімних типів) на DataTable
         /// за допомогою рефлексії. Символ «_» у назвах властивостей замінюється пробілом.
@@ -107,13 +90,25 @@ namespace PrivateSchool.Utils
             return table;
         }
 
-        /// <summary>Формат відображення колонок залежно від типу даних.</summary>
+        /// <summary>
+        /// Формат відображення колонок залежно від типу даних. Відносна ширина колонки
+        /// (FillWeight) пропорційна найдовшому значенню в ній, тому короткі числа
+        /// займають мало місця, а ПІБ і назви — більше.
+        /// </summary>
         public static void FormatColumns(DataGridView grid)
         {
+            int rowsToCheck = Math.Min(grid.Rows.Count, 200);
             foreach (DataGridViewColumn column in grid.Columns)
             {
                 column.SortMode = DataGridViewColumnSortMode.Automatic;
+                column.MinimumWidth = 48;
                 Type type = column.ValueType;
+
+                int length = column.HeaderText.Split(' ').Max(w => w.Length);
+                for (int i = 0; i < rowsToCheck; i++)
+                    length = Math.Max(length, DisplayLength(grid.Rows[i].Cells[column.Index].Value));
+                column.FillWeight = (Math.Min(length, 22) + 4) * 10;
+
                 if (type == typeof(decimal))
                 {
                     column.DefaultCellStyle.Format = "N2";
@@ -134,6 +129,19 @@ namespace PrivateSchool.Utils
                     column.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 }
             }
+        }
+
+        private static int DisplayLength(object value)
+        {
+            if (value == null || value is DBNull)
+                return 0;
+            if (value is decimal)
+                return ((decimal)value).ToString("N2").Length;
+            if (value is double)
+                return ((double)value).ToString("0.00").Length;
+            if (value is DateTime)
+                return 10;
+            return value.ToString().Length;
         }
     }
 }

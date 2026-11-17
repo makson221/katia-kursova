@@ -21,6 +21,10 @@ namespace PrivateSchool
             Thread.CurrentThread.CurrentCulture = new CultureInfo("uk-UA");
             Thread.CurrentThread.CurrentUICulture = new CultureInfo("uk-UA");
 
+#if NET5_0_OR_GREATER
+            // Коректне масштабування на екранах із масштабом 125–150 %
+            Application.SetHighDpiMode(HighDpiMode.SystemAware);
+#endif
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);

@@ -13,11 +13,13 @@ namespace PrivateSchool.Forms
         private readonly Group _group;
 
         public GroupForm(SchoolService service, Group group)
-            : base(service, group == null, "група")
+            : base(service, group == null, "Нова група", "Редагування групи")
         {
             InitializeComponent();
             _group = group == null ? new Group() : group.Clone<Group>();
             LoadData();
+            if (!IsNew)
+                Subtitle = "Група " + _group.Name + " · " + Service.GetCourseName(_group.CourseId);
         }
 
         private void LoadData()

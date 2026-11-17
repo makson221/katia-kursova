@@ -16,18 +16,30 @@ using PrivateSchool.Utils;
 namespace PrivateSchool.Forms
 {
     /// <summary>
-    /// Головна форма програми. Містить вкладки для роботи з усіма сутностями,
-    /// панель показників і звіти.
+    /// Головна форма програми: бічна панель навігації, заголовок сторінки
+    /// та сторінки для роботи з усіма сутностями, головна панель показників і звіти.
     /// </summary>
     public partial class MainForm : Form
     {
-        private static readonly Color DebtColor = Color.FromArgb(190, 30, 30);
-        private static readonly Color InactiveColor = Color.Gray;
-        private static readonly Color GoodColor = Color.FromArgb(0, 120, 60);
-        private static readonly Color AccentColor = Color.FromArgb(0, 84, 153);
+        /// <summary>Опис сторінки, на яку веде пункт бічного меню.</summary>
+        private sealed class PageInfo
+        {
+            public PageInfo(Panel page, string title, string subtitle)
+            {
+                Page = page;
+                Title = title;
+                Subtitle = subtitle;
+            }
+
+            public Panel Page { get; private set; }
+            public string Title { get; private set; }
+            public string Subtitle { get; private set; }
+        }
 
         private readonly SchoolService _service;
         private readonly User _user;
+        private readonly Dictionary<SidebarButton, PageInfo> _pages = new Dictionary<SidebarButton, PageInfo>();
+        private SidebarButton _currentNav;
         private ReportResult _lastReport;
 
         public MainForm(SchoolService service, User user)
@@ -37,28 +49,138 @@ namespace PrivateSchool.Forms
             _user = user;
 
             Text = service.SchoolName + " — автоматизована система управління";
-            lblStatusUser.Text = string.Format("Користувач: {0} [{1}]", user.FullName, EnumHelper.ToText(user.Role));
-            lblStatusFile.Text = "Файл даних: " + service.StorageLocation;
-            lblStatusDate.Text = DateTime.Today.ToString("D");
+            lblUserName.Text = user.FullName;
+            lblUserRole.Text = EnumHelper.ToText(user.Role) + " · " + user.Login;
 
-            UiHelper.StyleGrid(gridToday);
-            UiHelper.StyleGrid(gridReport);
-            gridToday.DataBindingComplete += (s, e) => UiHelper.FormatColumns(gridToday);
-            gridReport.DataBindingComplete += (s, e) => UiHelper.FormatColumns(gridReport);
+            ApplyTheme();
+            RegisterPages();
 
             // Керування користувачами доступне лише адміністратору
-            if (!user.IsAdministrator)
-                tabControl.TabPages.Remove(tabUsers);
+            navUsers.Visible = user.IsAdministrator;
 
             WireLists();
             cmbReport.Items.AddRange(ReportCatalog.GetAll().Cast<object>().ToArray());
 
             _service.DataChanged += OnDataChanged;
             RefreshAll();
+            ShowPage(navDashboard);
         }
 
         /// <summary>Користувач обрав «Змінити користувача».</summary>
         public bool LogoutRequested { get; private set; }
+
+        #region Оформлення та навігація
+
+        private void ApplyTheme()
+        {
+            AppTheme.StyleGrid(gridToday);
+            AppTheme.StyleGrid(gridReport);
+            gridToday.DataBindingComplete += (s, e) => UiHelper.FormatColumns(gridToday);
+            gridReport.DataBindingComplete += (s, e) => UiHelper.FormatColumns(gridReport);
+
+            AppTheme.StyleButton(btnHeaderExport, ButtonKind.Secondary);
+            AppTheme.StyleButton(btnAbout, ButtonKind.Ghost);
+            AppTheme.StyleButton(btnBuild, ButtonKind.Primary);
+            AppTheme.StyleButton(btnExport, ButtonKind.Secondary);
+
+            SetupCard(card1, "Учні", AppTheme.IconStudents);
+            SetupCard(card2, "Викладачі", AppTheme.IconTeachers);
+            SetupCard(card3, "Навчальні групи", AppTheme.IconGroups);
+            SetupCard(card4, "Курси", AppTheme.IconCourses);
+            SetupCard(card5, "Надходження", AppTheme.IconMoney);
+            SetupCard(card6, "Заборгованість", AppTheme.IconWarning);
+            SetupCard(card7, "Середній бал", AppTheme.IconGrades);
+            SetupCard(card8, "Занять на тиждень", AppTheme.IconSchedule);
+        }
+
+        private static void SetupCard(StatCard card, string title, string icon)
+        {
+            card.Title = title;
+            card.IconGlyph = icon;
+        }
+
+        private void RegisterPages()
+        {
+            _pages.Add(navDashboard, new PageInfo(pageDashboard, "Головна", null));
+            _pages.Add(navStudents, new PageInfo(pageStudents, "Учні", "Облік учнів, договорів та заборгованості"));
+            _pages.Add(navTeachers, new PageInfo(pageTeachers, "Викладачі", "Персонал, кваліфікація та тижневе навантаження"));
+            _pages.Add(navCourses, new PageInfo(pageCourses, "Курси", "Освітні програми та вартість навчання"));
+            _pages.Add(navGroups, new PageInfo(pageGroups, "Групи", "Навчальні групи, викладачі та наповненість"));
+            _pages.Add(navSchedule, new PageInfo(pageSchedule, "Розклад", "Щотижневий розклад занять з автоматичним контролем накладок"));
+            _pages.Add(navPayments, new PageInfo(pagePayments, "Оплати", "Надходження коштів за навчання"));
+            _pages.Add(navGrades, new PageInfo(pageGrades, "Успішність", "Журнал оцінок за 12-бальною шкалою"));
+            _pages.Add(navReports, new PageInfo(pageReports, "Звіти", "Аналітика закладу з експортом у CSV"));
+            _pages.Add(navUsers, new PageInfo(pageUsers, "Користувачі", "Облікові записи та права доступу"));
+        }
+
+        private void nav_Click(object sender, EventArgs e)
+        {
+            ShowPage((SidebarButton)sender);
+        }
+
+        /// <summary>Показує сторінку, на яку веде пункт меню, і приховує решту.</summary>
+        private void ShowPage(SidebarButton nav)
+        {
+            PageInfo info = _pages[nav];
+            _currentNav = nav;
+
+            info.Page.Visible = true;
+            info.Page.BringToFront();
+            foreach (KeyValuePair<SidebarButton, PageInfo> pair in _pages)
+            {
+                pair.Key.Selected = pair.Key == nav;
+                if (pair.Value.Page != info.Page)
+                    pair.Value.Page.Visible = false;
+            }
+
+            lblPageTitle.Text = info.Title;
+            lblPageSubtitle.Text = nav == navDashboard ? GetGreeting() : info.Subtitle;
+
+            if (info.Page == pageReports && cmbReport.SelectedIndex < 0 && cmbReport.Items.Count > 0)
+                cmbReport.SelectedIndex = 0; // автоматично будує перший звіт
+        }
+
+        private string GetGreeting()
+        {
+            DateTime today = DateTime.Today;
+            return string.Format("Вітаємо, {0}! Сьогодні {1}, {2:d MMMM yyyy} р.",
+                _user.FullName, DayNames.ToText(today.DayOfWeek).ToLower(), today);
+        }
+
+        /// <summary>Список на поточній сторінці (або null для головної та звітів).</summary>
+        private EntityListControl CurrentList
+        {
+            get
+            {
+                return _currentNav == null ? null
+                    : _pages[_currentNav].Page.Controls.OfType<EntityListControl>().FirstOrDefault();
+            }
+        }
+
+        /// <summary>Гарячі клавіші головного вікна.</summary>
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            switch (keyData)
+            {
+                case Keys.Control | Keys.E:
+                    btnHeaderExport_Click(this, EventArgs.Empty);
+                    return true;
+                case Keys.Control | Keys.S:
+                    SaveData();
+                    return true;
+                case Keys.Control | Keys.F:
+                    if (CurrentList != null)
+                        CurrentList.FocusSearch();
+                    return true;
+                case Keys.F1:
+                    btnAbout_Click(this, EventArgs.Empty);
+                    return true;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        #endregion
+
 
         #region Підключення подій списків
 
@@ -73,8 +195,8 @@ namespace PrivateSchool.Forms
             listStudents.FilterChanged += (s, e) => RefreshStudents();
             listStudents.RowColorSelector = row =>
             {
-                if ((string)row["Статус"] != EnumHelper.ToText(StudentStatus.Active)) return InactiveColor;
-                if ((decimal)row["Борг"] > 0) return DebtColor;
+                if ((string)row["Статус"] != EnumHelper.ToText(StudentStatus.Active)) return AppTheme.TextMuted;
+                if ((decimal)row["Борг"] > 0) return AppTheme.Danger;
                 return null;
             };
 
@@ -126,8 +248,8 @@ namespace PrivateSchool.Forms
             listGrades.RowColorSelector = row =>
             {
                 int value = (int)row["Оцінка"];
-                if (value < 4) return DebtColor;
-                if (value >= 10) return GoodColor;
+                if (value < 4) return AppTheme.Danger;
+                if (value >= 10) return AppTheme.Success;
                 return null;
             };
 
@@ -257,7 +379,6 @@ namespace PrivateSchool.Forms
                 {
                     s.Id,
                     ПІБ = s.FullName,
-                    Дата_народження = s.BirthDate,
                     Вік = s.Age,
                     Група = _service.GetGroupName(s.GroupId),
                     Договір = s.ContractNumber,
@@ -434,80 +555,72 @@ namespace PrivateSchool.Forms
 
         private void RefreshDashboard()
         {
-            lblWelcome.Text = string.Format("Вітаємо, {0}!", _user.FullName);
+            DateTime today = DateTime.Today;
+            DateTime monthStart = new DateTime(today.Year, today.Month, 1);
+            CultureInfo culture = CultureInfo.CurrentCulture;
 
             List<Student> students = _service.Students.GetAll().ToList();
             List<decimal> debts = students.Select(s => _service.GetDebt(s)).Where(d => d > 0).ToList();
-            DateTime monthStart = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+            List<Group> groups = _service.Groups.GetAll().ToList();
+            int capacity = groups.Sum(g => g.MaxStudents);
+            int filled = groups.Sum(g => _service.GetActiveStudentCount(g.Id));
+            double weeklyHours = _service.Teachers.GetAll().Sum(t => _service.GetTeacherWeeklyHours(t.Id));
+            int paymentsThisMonth = _service.Payments.Find(p => p.Date >= monthStart).Count();
             double? avg = _service.GetAverageGrade(g => true);
+            int lessonsToday = _service.Lessons.Find(l => l.Day == today.DayOfWeek).Count();
 
-            flowCards.SuspendLayout();
-            foreach (Control control in flowCards.Controls.Cast<Control>().ToList())
-                control.Dispose();
-            flowCards.Controls.Clear();
+            card1.SetData(students.Count(s => s.IsActive).ToString(),
+                "навчаються · усього записів: " + students.Count, AppTheme.Primary);
+            card2.SetData(_service.Teachers.Count.ToString(),
+                string.Format("навантаження {0:0.#} год/тиждень", weeklyHours), AppTheme.Violet);
+            card3.SetData(groups.Count.ToString(),
+                string.Format("заповненість {0:0} %", capacity == 0 ? 0 : filled * 100.0 / capacity), AppTheme.Teal);
+            card4.SetData(_service.Courses.Count.ToString(),
+                _service.Courses.Count == 0 ? "курсів ще немає"
+                    : string.Format("від {0:N0} грн на місяць", _service.Courses.GetAll().Min(c => c.PricePerMonth)),
+                AppTheme.Warning);
 
-            AddCard("Учнів навчається", students.Count(s => s.IsActive) + " з " + students.Count, AccentColor);
-            AddCard("Викладачів", _service.Teachers.Count.ToString(), AccentColor);
-            AddCard("Навчальних груп", _service.Groups.Count.ToString(), AccentColor);
-            AddCard("Курсів", _service.Courses.Count.ToString(), AccentColor);
-            AddCard("Надходження за " + DateTime.Today.ToString("MMMM"),
-                _service.GetIncome(monthStart, DateTime.Today).ToString("N0") + " грн", GoodColor);
-            AddCard("Загальна заборгованість", debts.Sum().ToString("N0") + " грн", DebtColor);
-            AddCard("Боржників", debts.Count.ToString(), debts.Count > 0 ? DebtColor : GoodColor);
-            AddCard("Середній бал", avg.HasValue ? avg.Value.ToString("0.00") : "—", AccentColor);
-            flowCards.ResumeLayout();
+            card5.Title = "Оплати за " + today.ToString("MMMM", culture);
+            card5.SetData(_service.GetIncome(monthStart, today).ToString("N0") + " грн",
+                "оплат цього місяця: " + paymentsThisMonth, AppTheme.Success);
+            card6.SetData(debts.Sum().ToString("N0") + " грн",
+                debts.Count == 0 ? "боржників немає" : "боржників: " + debts.Count,
+                debts.Count == 0 ? AppTheme.Success : AppTheme.Danger);
+            card7.SetData(avg.HasValue ? avg.Value.ToString("0.00") : "—",
+                avg.HasValue ? "рівень: " + Grade.GetLevelName(avg.Value).ToLower() : "оцінок ще немає", AppTheme.Violet);
+            card8.SetData(_service.Lessons.Count.ToString(),
+                lessonsToday == 0 ? "сьогодні занять немає" : "сьогодні: " + lessonsToday, AppTheme.Primary);
 
-            DayOfWeek today = DateTime.Today.DayOfWeek;
-            var lessons = _service.GetSchedule(l => l.Day == today)
+            // Діаграма надходжень за останні 6 місяців
+            List<ChartItem> chart = Enumerable.Range(0, 6)
+                .Select(i => monthStart.AddMonths(i - 5))
+                .Select(m => new ChartItem(
+                    culture.TextInfo.ToTitleCase(culture.DateTimeFormat.GetAbbreviatedMonthName(m.Month).TrimEnd('.')),
+                    _service.GetIncome(m, m.AddMonths(1).AddDays(-1))))
+                .ToList();
+            chartIncome.SetData(chart);
+            lblChartSubtitle.Text = string.Format("Оплати за останні 6 місяців · разом {0:N0} грн", chart.Sum(c => c.Value));
+
+            // Розклад на сьогодні
+            var lessons = _service.GetSchedule(l => l.Day == today.DayOfWeek)
                 .Select(l =>
                 {
                     Teacher teacher = _service.GetTeacherOfGroup(l.GroupId);
-                    Course course = _service.GetCourseOfGroup(l.GroupId);
                     return new
                     {
                         Час = l.TimeRange,
                         Група = _service.GetGroupName(l.GroupId),
-                        Курс = course == null ? "—" : course.Name,
                         Викладач = teacher == null ? "—" : teacher.ShortName,
-                        Аудиторія = l.Room,
-                        Учнів = _service.GetActiveStudentCount(l.GroupId)
+                        Аудиторія = l.Room
                     };
                 }).ToList();
 
-            lblToday.Text = string.Format("Розклад на сьогодні ({0}, {1:dd.MM.yyyy}){2}",
-                DayNames.ToText(today).ToLower(), DateTime.Today, lessons.Count == 0 ? " — занять немає" : string.Empty);
+            lblTodaySubtitle.Text = string.Format("{0}, {1:d MMMM} · {2}", DayNames.ToText(today.DayOfWeek), today,
+                lessons.Count == 0 ? "занять немає" : "занять: " + lessons.Count);
             gridToday.DataSource = UiHelper.ToDataTable(lessons);
-        }
 
-        private void AddCard(string title, string value, Color valueColor)
-        {
-            Panel card = new Panel
-            {
-                Size = new Size(272, 88),
-                Margin = new Padding(0, 0, 12, 12),
-                BackColor = Color.FromArgb(242, 247, 252),
-                BorderStyle = BorderStyle.FixedSingle
-            };
-            Label lblTitle = new Label
-            {
-                Text = title,
-                AutoSize = false,
-                Location = new Point(12, 10),
-                Size = new Size(250, 20),
-                ForeColor = Color.DimGray
-            };
-            Label lblValue = new Label
-            {
-                Text = value,
-                AutoSize = false,
-                Location = new Point(10, 34),
-                Size = new Size(252, 40),
-                Font = new Font("Segoe UI", 18F, FontStyle.Bold),
-                ForeColor = valueColor
-            };
-            card.Controls.Add(lblTitle);
-            card.Controls.Add(lblValue);
-            flowCards.Controls.Add(card);
+            if (_currentNav == navDashboard)
+                lblPageSubtitle.Text = GetGreeting();
         }
 
         #endregion
@@ -539,7 +652,7 @@ namespace PrivateSchool.Forms
 
         #endregion
 
-        #region Меню та події форми
+        #region Дії заголовка та події форми
 
         private void ExportTable(DataTable table, string name)
         {
@@ -575,23 +688,24 @@ namespace PrivateSchool.Forms
             }
         }
 
-        private void mnuExport_Click(object sender, EventArgs e)
+        private void btnHeaderExport_Click(object sender, EventArgs e)
         {
-            TabPage tab = tabControl.SelectedTab;
-            if (tab == tabReports)
+            PageInfo info = _pages[_currentNav];
+            if (info.Page == pageReports)
             {
                 btnExport_Click(sender, e);
                 return;
             }
 
-            DataGridView grid = tab == tabDashboard
+            DataGridView grid = info.Page == pageDashboard
                 ? gridToday
-                : tab.Controls.OfType<EntityListControl>().Select(l => l.Grid).FirstOrDefault();
+                : CurrentList == null ? null : CurrentList.Grid;
             DataTable table = grid == null ? null : grid.DataSource as DataTable;
-            ExportTable(table == null ? null : table.DefaultView.ToTable(), tab.Text);
+            ExportTable(table == null ? null : table.DefaultView.ToTable(),
+                info.Page == pageDashboard ? "Розклад на сьогодні" : info.Title);
         }
 
-        private void mnuSave_Click(object sender, EventArgs e)
+        private void SaveData()
         {
             try
             {
@@ -604,34 +718,40 @@ namespace PrivateSchool.Forms
             }
         }
 
-        private void mnuLogout_Click(object sender, EventArgs e)
+        private void navLogout_Click(object sender, EventArgs e)
         {
             LogoutRequested = true;
             Close();
         }
 
-        private void mnuExit_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
-        private void mnuAbout_Click(object sender, EventArgs e)
+        private void btnAbout_Click(object sender, EventArgs e)
         {
             MessageBox.Show(this,
                 "Автоматизована система приватного навчального закладу\n" +
-                "Версія 1.0\n\n" +
+                "Версія 1.1\n\n" +
                 "Курсова робота з дисципліни «Об'єктно-орієнтоване програмування».\n\n" +
                 "Можливості: облік учнів, викладачів, курсів і груп; розклад занять із контролем накладок; " +
                 "облік оплат і заборгованості; журнал успішності; звіти з експортом у CSV; " +
                 "розмежування прав користувачів.\n\n" +
-                "Технології: C#, .NET, Windows Forms, XML-серіалізація.",
+                "Гарячі клавіші: Ctrl+F — пошук, Ctrl+E — експорт у CSV, Ctrl+S — зберегти, " +
+                "Insert / Enter / Delete — додати, редагувати, видалити запис.\n\n" +
+                "Технології: C#, .NET, Windows Forms, GDI+, XML-серіалізація.\n" +
+                "Файл даних: " + _service.StorageLocation,
                 "Про програму", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        private void tabControl_SelectedIndexChanged(object sender, EventArgs e)
+        /// <summary>Логотип у бічній панелі: синій квадрат із заокругленими кутами та символом закладу.</summary>
+        private void panelBrand_Paint(object sender, PaintEventArgs e)
         {
-            if (tabControl.SelectedTab == tabReports && cmbReport.SelectedIndex < 0 && cmbReport.Items.Count > 0)
-                cmbReport.SelectedIndex = 0; // автоматично будує перший звіт
+            Graphics g = e.Graphics;
+            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+            float k = AppTheme.ScaleOf(g);
+            Rectangle logo = new Rectangle((int)(20 * k), (int)(20 * k), (int)(40 * k), (int)(40 * k));
+            using (System.Drawing.Drawing2D.GraphicsPath path = AppTheme.RoundedRect(logo, 10 * k))
+            using (System.Drawing.Drawing2D.LinearGradientBrush brush = new System.Drawing.Drawing2D.LinearGradientBrush(
+                       logo, Color.FromArgb(59, 130, 246), AppTheme.PrimaryDark, 45F))
+                g.FillPath(brush, path);
+            AppTheme.DrawLogoMark(g, logo, 14F);
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)

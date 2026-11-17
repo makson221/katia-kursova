@@ -21,8 +21,22 @@
 | **Користувачі** | Керування обліковими записами (лише для адміністратора) |
 
 Загальне для всіх списків: пошук, фільтр, сортування кліком по заголовку колонки,
-гарячі клавіші (`Insert` — додати, `Enter`/подвійний клік — редагувати, `Delete` — видалити),
-експорт поточної таблиці в CSV (`Ctrl+E`).
+гарячі клавіші (`Insert` — додати, `Enter`/подвійний клік — редагувати, `Delete` — видалити,
+`Ctrl+F` — пошук, `Esc` — очистити пошук), експорт поточної таблиці в CSV (`Ctrl+E`),
+`Ctrl+S` — зберегти, `F1` — про програму.
+
+## Інтерфейс
+
+- **Бічна панель навігації** (темна) з іконками розділів, інформацією про користувача та кнопкою зміни користувача.
+- **Заголовок сторінки** з назвою та підказкою, кнопки «Експорт у CSV» і «Про програму».
+- **Головна сторінка**: 8 карток-показників, стовпчикова діаграма надходжень за 6 місяців, розклад на сьогодні.
+- **Списки** у вигляді білих карток: кольорові плоскі кнопки, фільтр, поле пошуку, таблиця з автоматичною
+  шириною колонок; боржники підсвічуються червоним, неактивні учні — сірим, високі/низькі оцінки — зеленим/червоним.
+- **Форми редагування** з кольоровою шапкою (заголовок і підзаголовок, наприклад ПІБ учня) та єдиним стилем полів.
+- **Вікно входу** з фірмовою панеллю (градієнт GDI+).
+
+Усі кольори, шрифти та стилі зібрано в одному класі `AppTheme`. Іконки беруться зі шрифту
+*Segoe MDL2 Assets / Segoe Fluent Icons* (є у Windows 10/11); якщо шрифту немає, програма працює без іконок.
 
 ## Запуск
 
@@ -56,9 +70,10 @@ PrivateSchool/
 ├── Data/          — зберігання даних: generic-репозиторій, XML-сховище, генератор демо-даних
 ├── Services/      — бізнес-логіка: SchoolService (фасад), AuthService, PasswordHasher
 ├── Reports/       — ієрархія звітів (абстрактний ReportBase + 5 конкретних звітів)
-├── Controls/      — EntityListControl: універсальний UserControl для списків
+├── Controls/      — власні елементи керування: EntityListControl (список), SidebarButton (пункт меню),
+│                    StatCard (картка показника), BarChart (діаграма), CardPanel (панель-картка)
 ├── Forms/         — форми: вхід, головна, базова форма редагування та 8 форм-нащадків
-├── Utils/         — допоміжні класи (переліки, ComboBox, CSV-експорт, оформлення таблиць)
+├── Utils/         — тема оформлення AppTheme та допоміжні класи (переліки, ComboBox, CSV-експорт)
 └── Program.cs     — точка входу
 ```
 
@@ -176,8 +191,8 @@ classDiagram
 |---|---|
 | **Інкапсуляція** | Приватні поля з властивостями, які нормалізують введення (`Person.LastName` обрізає пробіли, `User.Login` переводить у нижній регістр); пароль зберігається лише як хеш; список у `Repository<T>` закритий, назовні віддається `IReadOnlyList<T>` |
 | **Абстракція** | Абстрактні класи `EntityBase`, `Person`, `ReportBase`; інтерфейси `IEntity`, `IValidatable`, `ISearchable`, `IRepository<T>`, `IDataStorage` (сховище можна замінити на JSON чи БД без змін у решті програми) |
-| **Наслідування** | `EntityBase → Person → Student / Teacher`; `EntityBase →` `Course`, `Group`, `Lesson`, `Payment`, `Grade`, `User`; `ReportBase →` 5 звітів; **візуальне успадкування форм**: `EditFormBase →` 8 форм редагування |
-| **Поліморфізм** | Перевизначення `Validate()` у кожній сутності (`Student` викликає `base.Validate()` і додає власні правила); абстрактні властивості `RoleName`, `MinAge`; віртуальні `GetInfo()`, `Matches()`, `ToString()`; `ReportBase.Build()` — шаблонний метод, що викликає перевизначені `DefineColumns`/`FillRows`/`BuildSummary`; `EditFormBase.SaveEntity()` |
+| **Наслідування** | `EntityBase → Person → Student / Teacher`; `EntityBase →` `Course`, `Group`, `Lesson`, `Payment`, `Grade`, `User`; `ReportBase →` 5 звітів; **візуальне успадкування форм**: `EditFormBase →` 8 форм редагування; власні елементи керування `SidebarButton`, `StatCard`, `BarChart` успадковують `Control`, `CardPanel` — `Panel` |
+| **Поліморфізм** | Перевизначення `Validate()` у кожній сутності (`Student` викликає `base.Validate()` і додає власні правила); абстрактні властивості `RoleName`, `MinAge`; віртуальні `GetInfo()`, `Matches()`, `ToString()`; `ReportBase.Build()` — шаблонний метод, що викликає перевизначені `DefineColumns`/`FillRows`/`BuildSummary`; `EditFormBase.SaveEntity()`; перевизначення `OnPaint` / `OnPaintBackground` у власних елементах керування (малювання засобами GDI+) |
 | **Узагальнення (generics)** | `Repository<T> where T : EntityBase`, `EntityBase.Clone<T>()`, `UiHelper.ToDataTable<T>()`, `EnumHelper.GetItems<T>()` |
 | **Події та делегати** | `Repository<T>.Changed` → `SchoolService.DataChanged` → автоматичне збереження та оновлення інтерфейсу; події `EntityListControl` (`AddClicked`, `EditClicked`, `DeleteClicked`, `FilterChanged`); `Func<DataRow, Color?>` для підсвічування рядків |
 | **Обробка винятків** | Власний виняток `ValidationException`; єдина обробка в `EditFormBase`; глобальний обробник `Application.ThreadException` |

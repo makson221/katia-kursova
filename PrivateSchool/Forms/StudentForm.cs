@@ -14,13 +14,15 @@ namespace PrivateSchool.Forms
         private readonly Student _student;
 
         public StudentForm(SchoolService service, Student student)
-            : base(service, student == null, "учень")
+            : base(service, student == null, "Новий учень", "Редагування даних учня")
         {
             InitializeComponent();
             _student = student == null ? new Student() : student.Clone<Student>();
             if (student == null)
                 _student.ContractNumber = SuggestContractNumber();
             LoadData();
+            if (!IsNew)
+                Subtitle = _student.FullName + " · договір № " + _student.ContractNumber;
 
             cmbGroup.SelectedIndexChanged += (s, e) => UpdateFeeInfo();
             numDiscount.ValueChanged += (s, e) => UpdateFeeInfo();

@@ -46,23 +46,23 @@ namespace PrivateSchool.Forms
             // lblName
             //
             this.lblName.AutoSize = true;
-            this.lblName.Location = new System.Drawing.Point(16, 21);
+            this.lblName.Location = new System.Drawing.Point(24, 91);
             this.lblName.Name = "lblName";
             this.lblName.TabIndex = 0;
             this.lblName.Text = "Назва групи:";
             //
             // txtName
             // 
-            this.txtName.Location = new System.Drawing.Point(160, 18);
+            this.txtName.Location = new System.Drawing.Point(170, 86);
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(250, 23);
+            this.txtName.Size = new System.Drawing.Size(252, 23);
             this.txtName.TabIndex = 1;
             this.txtName.MaxLength = 40;
             //
             // lblCourse
             //
             this.lblCourse.AutoSize = true;
-            this.lblCourse.Location = new System.Drawing.Point(16, 55);
+            this.lblCourse.Location = new System.Drawing.Point(24, 129);
             this.lblCourse.Name = "lblCourse";
             this.lblCourse.TabIndex = 2;
             this.lblCourse.Text = "Курс:";
@@ -71,15 +71,15 @@ namespace PrivateSchool.Forms
             // 
             this.cmbCourse.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbCourse.FormattingEnabled = true;
-            this.cmbCourse.Location = new System.Drawing.Point(160, 52);
+            this.cmbCourse.Location = new System.Drawing.Point(170, 124);
             this.cmbCourse.Name = "cmbCourse";
-            this.cmbCourse.Size = new System.Drawing.Size(250, 23);
+            this.cmbCourse.Size = new System.Drawing.Size(252, 23);
             this.cmbCourse.TabIndex = 3;
             //
             // lblTeacher
             //
             this.lblTeacher.AutoSize = true;
-            this.lblTeacher.Location = new System.Drawing.Point(16, 89);
+            this.lblTeacher.Location = new System.Drawing.Point(24, 167);
             this.lblTeacher.Name = "lblTeacher";
             this.lblTeacher.TabIndex = 4;
             this.lblTeacher.Text = "Викладач:";
@@ -88,15 +88,15 @@ namespace PrivateSchool.Forms
             // 
             this.cmbTeacher.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbTeacher.FormattingEnabled = true;
-            this.cmbTeacher.Location = new System.Drawing.Point(160, 86);
+            this.cmbTeacher.Location = new System.Drawing.Point(170, 162);
             this.cmbTeacher.Name = "cmbTeacher";
-            this.cmbTeacher.Size = new System.Drawing.Size(250, 23);
+            this.cmbTeacher.Size = new System.Drawing.Size(252, 23);
             this.cmbTeacher.TabIndex = 5;
             //
             // lblStartDate
             //
             this.lblStartDate.AutoSize = true;
-            this.lblStartDate.Location = new System.Drawing.Point(16, 123);
+            this.lblStartDate.Location = new System.Drawing.Point(24, 205);
             this.lblStartDate.Name = "lblStartDate";
             this.lblStartDate.TabIndex = 6;
             this.lblStartDate.Text = "Дата старту:";
@@ -104,42 +104,42 @@ namespace PrivateSchool.Forms
             // dtpStartDate
             // 
             this.dtpStartDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpStartDate.Location = new System.Drawing.Point(160, 120);
+            this.dtpStartDate.Location = new System.Drawing.Point(170, 200);
             this.dtpStartDate.Name = "dtpStartDate";
-            this.dtpStartDate.Size = new System.Drawing.Size(250, 23);
+            this.dtpStartDate.Size = new System.Drawing.Size(252, 23);
             this.dtpStartDate.TabIndex = 7;
             //
             // lblMaxStudents
             //
             this.lblMaxStudents.AutoSize = true;
-            this.lblMaxStudents.Location = new System.Drawing.Point(16, 157);
+            this.lblMaxStudents.Location = new System.Drawing.Point(24, 243);
             this.lblMaxStudents.Name = "lblMaxStudents";
             this.lblMaxStudents.TabIndex = 8;
             this.lblMaxStudents.Text = "Макс. кількість учнів:";
             //
             // numMaxStudents
             // 
-            this.numMaxStudents.Location = new System.Drawing.Point(160, 154);
+            this.numMaxStudents.Location = new System.Drawing.Point(170, 238);
             this.numMaxStudents.Maximum = new decimal(new int[] { 40, 0, 0, 0 });
             this.numMaxStudents.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             this.numMaxStudents.Name = "numMaxStudents";
-            this.numMaxStudents.Size = new System.Drawing.Size(250, 23);
+            this.numMaxStudents.Size = new System.Drawing.Size(252, 23);
             this.numMaxStudents.TabIndex = 9;
             this.numMaxStudents.Value = new decimal(new int[] { 12, 0, 0, 0 });
             //
             // lblRoom
             //
             this.lblRoom.AutoSize = true;
-            this.lblRoom.Location = new System.Drawing.Point(16, 191);
+            this.lblRoom.Location = new System.Drawing.Point(24, 281);
             this.lblRoom.Name = "lblRoom";
             this.lblRoom.TabIndex = 10;
             this.lblRoom.Text = "Аудиторія:";
             //
             // txtRoom
             // 
-            this.txtRoom.Location = new System.Drawing.Point(160, 188);
+            this.txtRoom.Location = new System.Drawing.Point(170, 276);
             this.txtRoom.Name = "txtRoom";
-            this.txtRoom.Size = new System.Drawing.Size(250, 23);
+            this.txtRoom.Size = new System.Drawing.Size(252, 23);
             this.txtRoom.TabIndex = 11;
             this.txtRoom.MaxLength = 40;
             //
@@ -147,7 +147,7 @@ namespace PrivateSchool.Forms
             //
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(428, 280);
+            this.ClientSize = new System.Drawing.Size(446, 386);
             this.Controls.Add(this.txtRoom);
             this.Controls.Add(this.lblRoom);
             this.Controls.Add(this.numMaxStudents);

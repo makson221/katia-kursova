@@ -21,6 +21,8 @@ namespace PrivateSchool.Controls
         public const string IdColumn = "Id";
 
         private bool _suppressFilterEvent;
+        private bool _allowModify = true;
+        private bool _filterVisible;
 
         public event EventHandler AddClicked;
         public event EventHandler EditClicked;
@@ -31,8 +33,32 @@ namespace PrivateSchool.Controls
 
         public EntityListControl()
         {
+            SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.ResizeRedraw, true);
             InitializeComponent();
-            UiHelper.StyleGrid(grid);
+
+            AppTheme.StyleGrid(grid);
+            AppTheme.StyleButton(btnAdd, ButtonKind.Primary);
+            AppTheme.StyleButton(btnEdit, ButtonKind.Secondary);
+            AppTheme.StyleButton(btnDelete, ButtonKind.Danger);
+
+            // Іконка «лупи» замість підпису, якщо в системі є шрифт іконок
+            Font iconFont = AppTheme.GetIconFont(11F);
+            if (iconFont != null)
+            {
+                lblSearch.Font = iconFont;
+                lblSearch.Text = AppTheme.IconSearch;
+                lblSearch.Width = 28;
+            }
+#if NET5_0_OR_GREATER
+            txtSearch.PlaceholderText = "Пошук…";
+#endif
+        }
+
+        /// <summary>Фон елемента — біла картка із заокругленими кутами.</summary>
+        protected override void OnPaintBackground(PaintEventArgs e)
+        {
+            Color parentBack = Parent == null ? AppTheme.Background : Parent.BackColor;
+            AppTheme.PaintCard(e.Graphics, ClientRectangle, parentBack, BackColor, 10);
         }
 
         /// <summary>Функція, що визначає колір рядка (наприклад, червоний для боржників).</summary>
@@ -45,13 +71,11 @@ namespace PrivateSchool.Controls
         [DefaultValue(true)]
         public bool AllowModify
         {
-            get { return btnAdd.Visible; }
+            get { return _allowModify; }
             set
             {
-                btnAdd.Visible = value;
-                btnEdit.Visible = value;
-                btnDelete.Visible = value;
-                sepEdit.Visible = value;
+                _allowModify = value;
+                flowActions.Visible = value;
             }
         }
 
@@ -68,12 +92,12 @@ namespace PrivateSchool.Controls
         [DefaultValue(false)]
         public bool FilterVisible
         {
-            get { return cmbFilter.Visible; }
+            get { return _filterVisible; }
             set
             {
+                _filterVisible = value;
                 lblFilter.Visible = value;
                 cmbFilter.Visible = value;
-                sepFilter.Visible = value;
             }
         }
 
@@ -116,6 +140,13 @@ namespace PrivateSchool.Controls
             get { return grid; }
         }
 
+        /// <summary>Переводить фокус у поле пошуку (Ctrl+F).</summary>
+        public void FocusSearch()
+        {
+            txtSearch.Focus();
+            txtSearch.SelectAll();
+        }
+
         /// <summary>Заповнює список фільтра; першим додається пункт «усі».</summary>
         public void SetFilterItems(IEnumerable<ComboItem> items, string allText)
         {
@@ -123,7 +154,7 @@ namespace PrivateSchool.Controls
             _suppressFilterEvent = true;
             try
             {
-                UiHelper.Fill(cmbFilter.ComboBox, new[] { new ComboItem(null, allText) }.Concat(items), current);
+                UiHelper.Fill(cmbFilter, new[] { new ComboItem(null, allText) }.Concat(items), current);
             }
             finally
             {
@@ -206,9 +237,19 @@ namespace PrivateSchool.Controls
             Raise(FilterChanged);
         }
 
-        private void btnClearSearch_Click(object sender, EventArgs e)
+        private void txtSearch_KeyDown(object sender, KeyEventArgs e)
         {
-            txtSearch.Clear();
+            if (e.KeyCode == Keys.Escape && txtSearch.TextLength > 0)
+            {
+                txtSearch.Clear();
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+            }
+            else if (e.KeyCode == Keys.Down)
+            {
+                grid.Focus();
+                e.Handled = true;
+            }
         }
 
         private void cmbFilter_SelectedIndexChanged(object sender, EventArgs e)

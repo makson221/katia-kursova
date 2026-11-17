@@ -47,7 +47,7 @@ namespace PrivateSchool.Forms
             // lblGroup
             //
             this.lblGroup.AutoSize = true;
-            this.lblGroup.Location = new System.Drawing.Point(16, 21);
+            this.lblGroup.Location = new System.Drawing.Point(24, 91);
             this.lblGroup.Name = "lblGroup";
             this.lblGroup.TabIndex = 0;
             this.lblGroup.Text = "Група:";
@@ -56,15 +56,15 @@ namespace PrivateSchool.Forms
             // 
             this.cmbGroup.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbGroup.FormattingEnabled = true;
-            this.cmbGroup.Location = new System.Drawing.Point(160, 18);
+            this.cmbGroup.Location = new System.Drawing.Point(170, 86);
             this.cmbGroup.Name = "cmbGroup";
-            this.cmbGroup.Size = new System.Drawing.Size(250, 23);
+            this.cmbGroup.Size = new System.Drawing.Size(252, 23);
             this.cmbGroup.TabIndex = 1;
             //
             // lblStudent
             //
             this.lblStudent.AutoSize = true;
-            this.lblStudent.Location = new System.Drawing.Point(16, 55);
+            this.lblStudent.Location = new System.Drawing.Point(24, 129);
             this.lblStudent.Name = "lblStudent";
             this.lblStudent.TabIndex = 2;
             this.lblStudent.Text = "Учень:";
@@ -73,15 +73,15 @@ namespace PrivateSchool.Forms
             // 
             this.cmbStudent.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbStudent.FormattingEnabled = true;
-            this.cmbStudent.Location = new System.Drawing.Point(160, 52);
+            this.cmbStudent.Location = new System.Drawing.Point(170, 124);
             this.cmbStudent.Name = "cmbStudent";
-            this.cmbStudent.Size = new System.Drawing.Size(250, 23);
+            this.cmbStudent.Size = new System.Drawing.Size(252, 23);
             this.cmbStudent.TabIndex = 3;
             //
             // lblDate
             //
             this.lblDate.AutoSize = true;
-            this.lblDate.Location = new System.Drawing.Point(16, 89);
+            this.lblDate.Location = new System.Drawing.Point(24, 167);
             this.lblDate.Name = "lblDate";
             this.lblDate.TabIndex = 4;
             this.lblDate.Text = "Дата:";
@@ -89,22 +89,22 @@ namespace PrivateSchool.Forms
             // dtpDate
             // 
             this.dtpDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpDate.Location = new System.Drawing.Point(160, 86);
+            this.dtpDate.Location = new System.Drawing.Point(170, 162);
             this.dtpDate.Name = "dtpDate";
-            this.dtpDate.Size = new System.Drawing.Size(250, 23);
+            this.dtpDate.Size = new System.Drawing.Size(252, 23);
             this.dtpDate.TabIndex = 5;
             //
             // lblValue
             //
             this.lblValue.AutoSize = true;
-            this.lblValue.Location = new System.Drawing.Point(16, 123);
+            this.lblValue.Location = new System.Drawing.Point(24, 205);
             this.lblValue.Name = "lblValue";
             this.lblValue.TabIndex = 6;
             this.lblValue.Text = "Оцінка (1–12):";
             //
             // numValue
             // 
-            this.numValue.Location = new System.Drawing.Point(160, 120);
+            this.numValue.Location = new System.Drawing.Point(170, 200);
             this.numValue.Maximum = new decimal(new int[] { 12, 0, 0, 0 });
             this.numValue.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             this.numValue.Name = "numValue";
@@ -114,17 +114,17 @@ namespace PrivateSchool.Forms
             //
             // lblLevel
             // 
-            this.lblLevel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(84)))), ((int)(((byte)(153)))));
-            this.lblLevel.Location = new System.Drawing.Point(160, 156);
+            this.lblLevel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(99)))), ((int)(((byte)(235)))));
+            this.lblLevel.Location = new System.Drawing.Point(170, 240);
             this.lblLevel.Name = "lblLevel";
-            this.lblLevel.Size = new System.Drawing.Size(250, 23);
+            this.lblLevel.Size = new System.Drawing.Size(252, 23);
             this.lblLevel.TabIndex = 8;
             this.lblLevel.Text = "";
             //
             // lblKind
             //
             this.lblKind.AutoSize = true;
-            this.lblKind.Location = new System.Drawing.Point(16, 191);
+            this.lblKind.Location = new System.Drawing.Point(24, 281);
             this.lblKind.Name = "lblKind";
             this.lblKind.TabIndex = 9;
             this.lblKind.Text = "Вид оцінки:";
@@ -133,33 +133,33 @@ namespace PrivateSchool.Forms
             // 
             this.cmbKind.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbKind.FormattingEnabled = true;
-            this.cmbKind.Location = new System.Drawing.Point(160, 188);
+            this.cmbKind.Location = new System.Drawing.Point(170, 276);
             this.cmbKind.Name = "cmbKind";
-            this.cmbKind.Size = new System.Drawing.Size(250, 23);
+            this.cmbKind.Size = new System.Drawing.Size(252, 23);
             this.cmbKind.TabIndex = 10;
             //
             // lblComment
             //
             this.lblComment.AutoSize = true;
-            this.lblComment.Location = new System.Drawing.Point(16, 225);
+            this.lblComment.Location = new System.Drawing.Point(24, 319);
             this.lblComment.Name = "lblComment";
             this.lblComment.TabIndex = 11;
             this.lblComment.Text = "Коментар:";
             //
             // txtComment
             // 
-            this.txtComment.Location = new System.Drawing.Point(160, 222);
+            this.txtComment.Location = new System.Drawing.Point(170, 314);
             this.txtComment.Multiline = true;
             this.txtComment.Name = "txtComment";
             this.txtComment.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtComment.Size = new System.Drawing.Size(250, 50);
+            this.txtComment.Size = new System.Drawing.Size(252, 50);
             this.txtComment.TabIndex = 12;
             //
             // GradeForm
             //
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(428, 341);
+            this.ClientSize = new System.Drawing.Size(446, 449);
             this.Controls.Add(this.txtComment);
             this.Controls.Add(this.lblComment);
             this.Controls.Add(this.cmbKind);

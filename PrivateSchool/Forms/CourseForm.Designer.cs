@@ -49,23 +49,23 @@ namespace PrivateSchool.Forms
             // lblName
             //
             this.lblName.AutoSize = true;
-            this.lblName.Location = new System.Drawing.Point(16, 21);
+            this.lblName.Location = new System.Drawing.Point(24, 91);
             this.lblName.Name = "lblName";
             this.lblName.TabIndex = 0;
             this.lblName.Text = "Назва курсу:";
             //
             // txtName
             // 
-            this.txtName.Location = new System.Drawing.Point(160, 18);
+            this.txtName.Location = new System.Drawing.Point(170, 86);
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(250, 23);
+            this.txtName.Size = new System.Drawing.Size(252, 23);
             this.txtName.TabIndex = 1;
             this.txtName.MaxLength = 100;
             //
             // lblLevel
             //
             this.lblLevel.AutoSize = true;
-            this.lblLevel.Location = new System.Drawing.Point(16, 55);
+            this.lblLevel.Location = new System.Drawing.Point(24, 129);
             this.lblLevel.Name = "lblLevel";
             this.lblLevel.TabIndex = 2;
             this.lblLevel.Text = "Рівень:";
@@ -74,15 +74,15 @@ namespace PrivateSchool.Forms
             // 
             this.cmbLevel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbLevel.FormattingEnabled = true;
-            this.cmbLevel.Location = new System.Drawing.Point(160, 52);
+            this.cmbLevel.Location = new System.Drawing.Point(170, 124);
             this.cmbLevel.Name = "cmbLevel";
-            this.cmbLevel.Size = new System.Drawing.Size(250, 23);
+            this.cmbLevel.Size = new System.Drawing.Size(252, 23);
             this.cmbLevel.TabIndex = 3;
             //
             // lblPrice
             //
             this.lblPrice.AutoSize = true;
-            this.lblPrice.Location = new System.Drawing.Point(16, 89);
+            this.lblPrice.Location = new System.Drawing.Point(24, 167);
             this.lblPrice.Name = "lblPrice";
             this.lblPrice.TabIndex = 4;
             this.lblPrice.Text = "Ціна за місяць, грн:";
@@ -91,11 +91,11 @@ namespace PrivateSchool.Forms
             // 
             this.numPrice.DecimalPlaces = 2;
             this.numPrice.Increment = new decimal(new int[] { 100, 0, 0, 0 });
-            this.numPrice.Location = new System.Drawing.Point(160, 86);
+            this.numPrice.Location = new System.Drawing.Point(170, 162);
             this.numPrice.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
             this.numPrice.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             this.numPrice.Name = "numPrice";
-            this.numPrice.Size = new System.Drawing.Size(250, 23);
+            this.numPrice.Size = new System.Drawing.Size(252, 23);
             this.numPrice.TabIndex = 5;
             this.numPrice.ThousandsSeparator = true;
             this.numPrice.Value = new decimal(new int[] { 2000, 0, 0, 0 });
@@ -103,62 +103,62 @@ namespace PrivateSchool.Forms
             // lblDuration
             //
             this.lblDuration.AutoSize = true;
-            this.lblDuration.Location = new System.Drawing.Point(16, 123);
+            this.lblDuration.Location = new System.Drawing.Point(24, 205);
             this.lblDuration.Name = "lblDuration";
             this.lblDuration.TabIndex = 6;
             this.lblDuration.Text = "Тривалість, міс.:";
             //
             // numDuration
             // 
-            this.numDuration.Location = new System.Drawing.Point(160, 120);
+            this.numDuration.Location = new System.Drawing.Point(170, 200);
             this.numDuration.Maximum = new decimal(new int[] { 48, 0, 0, 0 });
             this.numDuration.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             this.numDuration.Name = "numDuration";
-            this.numDuration.Size = new System.Drawing.Size(250, 23);
+            this.numDuration.Size = new System.Drawing.Size(252, 23);
             this.numDuration.TabIndex = 7;
             this.numDuration.Value = new decimal(new int[] { 9, 0, 0, 0 });
             //
             // lblLessonsPerWeek
             //
             this.lblLessonsPerWeek.AutoSize = true;
-            this.lblLessonsPerWeek.Location = new System.Drawing.Point(16, 157);
+            this.lblLessonsPerWeek.Location = new System.Drawing.Point(24, 243);
             this.lblLessonsPerWeek.Name = "lblLessonsPerWeek";
             this.lblLessonsPerWeek.TabIndex = 8;
             this.lblLessonsPerWeek.Text = "Занять на тиждень:";
             //
             // numLessonsPerWeek
             // 
-            this.numLessonsPerWeek.Location = new System.Drawing.Point(160, 154);
+            this.numLessonsPerWeek.Location = new System.Drawing.Point(170, 238);
             this.numLessonsPerWeek.Maximum = new decimal(new int[] { 7, 0, 0, 0 });
             this.numLessonsPerWeek.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             this.numLessonsPerWeek.Name = "numLessonsPerWeek";
-            this.numLessonsPerWeek.Size = new System.Drawing.Size(250, 23);
+            this.numLessonsPerWeek.Size = new System.Drawing.Size(252, 23);
             this.numLessonsPerWeek.TabIndex = 9;
             this.numLessonsPerWeek.Value = new decimal(new int[] { 2, 0, 0, 0 });
             //
             // lblDescription
             //
             this.lblDescription.AutoSize = true;
-            this.lblDescription.Location = new System.Drawing.Point(16, 191);
+            this.lblDescription.Location = new System.Drawing.Point(24, 281);
             this.lblDescription.Name = "lblDescription";
             this.lblDescription.TabIndex = 10;
             this.lblDescription.Text = "Опис:";
             //
             // txtDescription
             // 
-            this.txtDescription.Location = new System.Drawing.Point(160, 188);
+            this.txtDescription.Location = new System.Drawing.Point(170, 276);
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtDescription.Size = new System.Drawing.Size(250, 80);
+            this.txtDescription.Size = new System.Drawing.Size(252, 80);
             this.txtDescription.TabIndex = 11;
             //
             // lblTotal
             // 
-            this.lblTotal.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(84)))), ((int)(((byte)(153)))));
-            this.lblTotal.Location = new System.Drawing.Point(160, 281);
+            this.lblTotal.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(99)))), ((int)(((byte)(235)))));
+            this.lblTotal.Location = new System.Drawing.Point(170, 371);
             this.lblTotal.Name = "lblTotal";
-            this.lblTotal.Size = new System.Drawing.Size(250, 23);
+            this.lblTotal.Size = new System.Drawing.Size(252, 23);
             this.lblTotal.TabIndex = 12;
             this.lblTotal.Text = "";
             //
@@ -166,7 +166,7 @@ namespace PrivateSchool.Forms
             //
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(428, 371);
+            this.ClientSize = new System.Drawing.Size(446, 479);
             this.Controls.Add(this.lblTotal);
             this.Controls.Add(this.txtDescription);
             this.Controls.Add(this.lblDescription);

@@ -13,12 +13,14 @@ namespace PrivateSchool.Forms
         private readonly Grade _grade;
 
         public GradeForm(SchoolService service, Grade grade, int defaultGroupId)
-            : base(service, grade == null, "оцінка")
+            : base(service, grade == null, "Нова оцінка", "Редагування оцінки")
         {
             InitializeComponent();
             _grade = grade == null ? new Grade { GroupId = defaultGroupId } : grade.Clone<Grade>();
             dtpDate.MaxDate = System.DateTime.Today;
             LoadData();
+            if (!IsNew)
+                Subtitle = Service.GetStudentName(_grade.StudentId);
 
             cmbGroup.SelectedIndexChanged += (s, e) => FillStudents(0);
             numValue.ValueChanged += (s, e) => UpdateLevel();

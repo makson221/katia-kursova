@@ -13,11 +13,13 @@ namespace PrivateSchool.Forms
         private readonly Teacher _teacher;
 
         public TeacherForm(SchoolService service, Teacher teacher)
-            : base(service, teacher == null, "викладач")
+            : base(service, teacher == null, "Новий викладач", "Редагування даних викладача")
         {
             InitializeComponent();
             _teacher = teacher == null ? new Teacher { BirthDate = DateTime.Today.AddYears(-30) } : teacher.Clone<Teacher>();
             LoadData();
+            if (!IsNew)
+                Subtitle = _teacher.FullName + " · " + _teacher.Specialization;
         }
 
         private void LoadData()
