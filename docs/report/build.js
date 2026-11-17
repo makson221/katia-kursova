@@ -138,19 +138,22 @@ function code(lines, caption) {
     keepNext: true, spacing: { before: 120, after: 60, line: LINE }, indent: { firstLine: INDENT },
     children: [new TextRun({ text: caption })],
   }));
-  lines.forEach((l, i) => out.push(new Paragraph({
-    keepNext: i < lines.length - 1,
-    keepLines: true,
-    shading: { fill: "F5F5F5", type: ShadingType.CLEAR, color: "auto" },
-    border: {
-      left: border, right: border,
-      top: i === 0 ? border : undefined,
-      bottom: i === lines.length - 1 ? border : undefined,
-    },
-    indent: { left: 200, right: 200 },
-    spacing: { line: 240, before: 0, after: i === lines.length - 1 ? 160 : 0 },
-    children: [new TextRun({ text: l.length ? l : " ", font: "Courier New", size: 20 })],
-  })));
+  const b = { style: BorderStyle.SINGLE, size: 4, color: "999999" };
+  out.push(new Table({
+    width: { size: TEXT_W, type: WidthType.DXA },
+    columnWidths: [TEXT_W],
+    rows: [new TableRow({ cantSplit: true, children: [new TableCell({
+      width: { size: TEXT_W, type: WidthType.DXA },
+      borders: { top: b, bottom: b, left: b, right: b },
+      shading: { fill: "F5F5F5", type: ShadingType.CLEAR, color: "auto" },
+      margins: { top: 60, bottom: 60, left: 140, right: 140 },
+      children: lines.map((l) => new Paragraph({
+        spacing: { line: 240, before: 0, after: 0 },
+        children: [new TextRun({ text: l.length ? l : " ", font: "Courier New", size: 20 })],
+      })),
+    })] })],
+  }));
+  out.push(new Paragraph({ spacing: { after: 120 }, children: [] }));
   return out;
 }
 
